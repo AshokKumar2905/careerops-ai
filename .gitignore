@@ -1,0 +1,55 @@
+# ==============================
+# Environment & Secrets
+# ==============================
+backend/.env
+frontend/.env
+.env
+.env.*
+
+# ==============================
+# Python
+# ==============================
+backend/venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ==============================
+# Node / Frontend
+# ==============================
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# ==============================
+# Logs
+# ==============================
+*.log
+backend.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ==============================
+# OS / Editor
+# ==============================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# ==============================
+# Local Database / Runtime
+# ==============================
+*.db
+*.sqlite
+*.sqlite3
+
+# ==============================
+# Coverage
+# ==============================
+coverage/
+htmlcov/
+.coverage

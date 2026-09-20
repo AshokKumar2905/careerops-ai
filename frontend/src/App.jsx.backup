@@ -1,0 +1,174 @@
+import { useEffect, useState } from "react";
+import { checkBackendHealth } from "./api";
+import "./App.css";
+
+function App() {
+  const [backendStatus, setBackendStatus] = useState("Checking...");
+
+  useEffect(() => {
+    checkBackendHealth()
+      .then(() => setBackendStatus("Backend Online"))
+      .catch(() => setBackendStatus("Backend Offline"));
+  }, []);
+
+  return (
+    <main className="min-h-screen bg-slate-950 text-white">
+      <header className="border-b border-slate-800 bg-slate-950/95">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight">CareerOps AI</h1>
+            <p className="text-sm text-slate-400">
+              AI Career Advisor & DevOps Knowledge Hub
+            </p>
+            <p className="mt-1 text-xs text-cyan-400">{backendStatus}</p>
+          </div>
+
+          <nav className="hidden gap-6 text-sm text-slate-300 md:flex">
+            <a href="#features" className="hover:text-white">Features</a>
+            <a href="#architecture" className="hover:text-white">Architecture</a>
+            <a href="#technology" className="hover:text-white">Technology</a>
+            <a href="#security" className="hover:text-white">Security</a>
+          </nav>
+        </div>
+      </header>
+
+      <section className="mx-auto max-w-7xl px-6 py-20">
+        <div className="max-w-4xl">
+          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-cyan-400">
+            DevOps Portfolio Project
+          </p>
+
+          <h2 className="text-4xl font-bold leading-tight sm:text-5xl">
+            Discover the right career path from your skills, experience and goals.
+          </h2>
+
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
+            CareerOps AI analyzes a user's education, skills, projects,
+            experience and career goals to build a personalized career path,
+            learning journey and job-focused roadmap.
+          </p>
+
+          <div className="mt-8 flex flex-wrap gap-4">
+            <a
+              href="#features"
+              className="rounded-lg bg-cyan-500 px-6 py-3 font-semibold text-slate-950 hover:bg-cyan-400"
+            >
+              Explore Career Advisor
+            </a>
+
+            <a
+              href="#architecture"
+              className="rounded-lg border border-slate-700 px-6 py-3 font-semibold text-white hover:bg-slate-900"
+            >
+              View Architecture
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="features" className="border-y border-slate-800 bg-slate-900/40">
+        <div className="mx-auto max-w-7xl px-6 py-16">
+          <h3 className="text-3xl font-bold">Core Features</h3>
+
+          <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <article className="rounded-xl border border-slate-800 bg-slate-950 p-6">
+              <h4 className="text-xl font-semibold">Career Analysis</h4>
+              <p className="mt-3 text-sm leading-6 text-slate-400">
+                Analyze education, skills, experience, interests and career goals.
+              </p>
+            </article>
+
+            <article className="rounded-xl border border-slate-800 bg-slate-950 p-6">
+              <h4 className="text-xl font-semibold">AI Advice</h4>
+              <p className="mt-3 text-sm leading-6 text-slate-400">
+                Generate personalized guidance through a configurable AI provider.
+              </p>
+            </article>
+
+            <article className="rounded-xl border border-slate-800 bg-slate-950 p-6">
+              <h4 className="text-xl font-semibold">Learning Paths</h4>
+              <p className="mt-3 text-sm leading-6 text-slate-400">
+                Connect career targets with skills, projects and learning plans.
+              </p>
+            </article>
+
+            <article className="rounded-xl border border-slate-800 bg-slate-950 p-6">
+              <h4 className="text-xl font-semibold">Job Guidance</h4>
+              <p className="mt-3 text-sm leading-6 text-slate-400">
+                Organize career information around job roles and required skills.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="architecture" className="mx-auto max-w-7xl px-6 py-16">
+        <h3 className="text-3xl font-bold">Application Architecture</h3>
+
+        <div className="mt-8 grid gap-4 md:grid-cols-4">
+          {[
+            ["Frontend", "React + Vite + Tailwind CSS"],
+            ["Backend", "Python + FastAPI"],
+            ["Database", "PostgreSQL + SQLAlchemy + Alembic"],
+            ["AI Layer", "Configurable AI provider abstraction"],
+          ].map(([title, value]) => (
+            <div
+              key={title}
+              className="rounded-xl border border-slate-800 bg-slate-900 p-6"
+            >
+              <p className="text-sm font-medium text-cyan-400">{title}</p>
+              <p className="mt-2 font-semibold">{value}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="technology" className="border-y border-slate-800 bg-slate-900/40">
+        <div className="mx-auto max-w-7xl px-6 py-16">
+          <h3 className="text-3xl font-bold">DevOps Technology Stack</h3>
+
+          <div className="mt-8 flex flex-wrap gap-3">
+            {[
+              "Git",
+              "GitHub",
+              "Docker",
+              "Kubernetes",
+              "Helm",
+              "Terraform",
+              "Ansible",
+              "GitHub Actions",
+              "Prometheus",
+              "Grafana",
+              "AWS",
+            ].map((tool) => (
+              <span
+                key={tool}
+                className="rounded-full border border-slate-700 bg-slate-950 px-4 py-2 text-sm text-slate-300"
+              >
+                {tool}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="security" className="mx-auto max-w-7xl px-6 py-16">
+        <h3 className="text-3xl font-bold">Security by Design</h3>
+
+        <p className="mt-4 max-w-3xl leading-7 text-slate-300">
+          The application is designed around protected secrets, environment-based
+          configuration, authentication, input validation, secure API practices,
+          testing and controlled deployment workflows.
+        </p>
+      </section>
+
+      <footer className="border-t border-slate-800">
+        <div className="mx-auto max-w-7xl px-6 py-8 text-sm text-slate-500">
+          CareerOps AI — AI Career Advisor & DevOps Knowledge Hub
+        </div>
+      </footer>
+    </main>
+  );
+}
+
+export default App;

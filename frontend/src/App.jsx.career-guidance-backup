@@ -1,0 +1,492 @@
+import { useEffect, useState } from "react";
+import {
+  ArrowRight,
+  Bot,
+  Check,
+  ChevronRight,
+  Cloud,
+  Code2,
+  Database,
+  Menu,
+  Network,
+  ShieldCheck,
+  Sparkles,
+  Terminal,
+  X,
+} from "lucide-react";
+import { checkBackendHealth } from "./api";
+import "./App.css";
+
+const careerTracks = [
+  {
+    title: "Technology",
+    description: "Software, cloud, cybersecurity, data, AI and emerging technology careers.",
+    icon: Code2,
+  },
+  {
+    title: "Business",
+    description: "Management, marketing, operations, consulting and business strategy careers.",
+    icon: Network,
+  },
+  {
+    title: "Design & Creative",
+    description: "UI/UX, graphic design, content, media and creative technology careers.",
+    icon: Sparkles,
+  },
+  {
+    title: "Finance & Analytics",
+    description: "Finance, accounting, data analysis and business intelligence careers.",
+    icon: Database,
+  },
+  {
+    title: "Healthcare & Life Sciences",
+    description: "Healthcare, biotechnology, research and life science career opportunities.",
+    icon: ShieldCheck,
+  },
+  {
+    title: "Engineering & Infrastructure",
+    description: "Engineering, cloud infrastructure, automation and technical operations careers.",
+    icon: Cloud,
+  },
+];
+
+const technologies = [
+  "Technology",
+  "Business",
+  "Finance",
+  "Healthcare",
+  "Design",
+  "Engineering",
+  "Data & AI",
+  "Media",
+  "Education & Research",
+  "Law & Public Service",
+  "Hospitality & Travel",
+  "Skilled Trades",
+];
+
+function App() {
+  const [backendStatus, setBackendStatus] = useState("Checking...");
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    checkBackendHealth()
+      .then(() => setBackendStatus("Backend Online"))
+      .catch(() => setBackendStatus("Backend Offline"));
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-[#050505] text-white">
+      {/* Background */}
+      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+        <div className="absolute left-1/2 top-[-280px] h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-cyan-500/10 blur-[150px]" />
+        <div className="absolute right-[-200px] top-[25%] h-[500px] w-[500px] rounded-full bg-violet-500/10 blur-[150px]" />
+        <div className="absolute bottom-[-200px] left-[-150px] h-[450px] w-[450px] rounded-full bg-blue-500/10 blur-[140px]" />
+      </div>
+
+      {/* Navbar */}
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#050505]/80 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
+          <a href="#" className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-400/20 bg-cyan-400/10">
+              <Sparkles className="h-5 w-5 text-cyan-300" />
+            </div>
+
+            <div>
+              <div className="font-semibold">CareerOps AI</div>
+              <div className="text-[11px] text-zinc-500">
+                AI Career Intelligence
+              </div>
+            </div>
+          </a>
+
+          <nav className="hidden items-center gap-8 text-sm text-zinc-400 md:flex">
+            <a href="#careers" className="transition hover:text-white">
+              Career Areas
+            </a>
+            <a href="#workflow" className="transition hover:text-white">
+              How It Works
+            </a>
+            <a href="#stack" className="transition hover:text-white">
+              Technology
+            </a>
+            <a href="#security" className="transition hover:text-white">
+              Security
+            </a>
+          </nav>
+
+          <div className="hidden items-center gap-4 md:flex">
+            <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-2 text-xs text-zinc-400">
+              <span
+                className={`h-2 w-2 rounded-full ${
+                  backendStatus === "Backend Online"
+                    ? "bg-emerald-400"
+                    : "bg-amber-400"
+                }`}
+              />
+              {backendStatus}
+            </div>
+
+            <a
+              href="#careers"
+              className="rounded-lg bg-white px-4 py-2 text-sm font-semibold text-black transition hover:bg-zinc-200"
+            >
+              Discover My Career
+            </a>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="rounded-lg border border-white/10 p-2 md:hidden"
+            aria-label="Toggle menu"
+          >
+            {menuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
+
+        {menuOpen && (
+          <div className="border-t border-white/10 px-5 py-4 md:hidden">
+            <nav className="flex flex-col gap-4 text-sm text-zinc-300">
+              <a href="#careers" onClick={() => setMenuOpen(false)}>
+                Career Areas
+              </a>
+              <a href="#workflow" onClick={() => setMenuOpen(false)}>
+                How It Works
+              </a>
+              <a href="#stack" onClick={() => setMenuOpen(false)}>
+                Technology
+              </a>
+              <a href="#security" onClick={() => setMenuOpen(false)}>
+                Security
+              </a>
+            </nav>
+          </div>
+        )}
+      </header>
+
+      <main>
+        {/* Hero */}
+        <section className="mx-auto max-w-7xl px-5 pb-12 pt-20 lg:px-8 lg:pb-32 lg:pt-28">
+          <div className="mx-auto max-w-5xl text-center">
+            <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/[0.06] px-4 py-2 text-xs text-cyan-200">
+              <Bot className="h-4 w-4" />
+              AI-powered career discovery
+              <ChevronRight className="h-3 w-3" />
+            </div>
+
+            <h1 className="text-5xl font-semibold leading-[1.02] tracking-[-0.05em] sm:text-6xl lg:text-8xl">
+              Find a career that fits
+              <span className="block bg-gradient-to-r from-cyan-300 via-white to-violet-300 bg-clip-text text-transparent">
+                your interests & strengths.
+              </span>
+            </h1>
+
+            <p className="mx-auto mt-7 max-w-2xl text-base leading-7 text-zinc-400 sm:text-lg">
+              CareerOps AI analyzes your education, skills, projects,
+              experience and goals to create a personalized career roadmap.
+            </p>
+
+            <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+              <a
+                href="#careers"
+                className="group inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3.5 text-sm font-semibold text-black transition hover:bg-zinc-200"
+              >
+                Explore career options
+                <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+              </a>
+
+              <a
+                href="#workflow"
+                className="inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-white/[0.07]"
+              >
+                See how it works
+              </a>
+            </div>
+          </div>
+
+          {/* Product Preview */}
+          <div className="mx-auto mt-16 max-w-6xl rounded-2xl border border-white/10 bg-white/[0.03] p-2 shadow-2xl shadow-cyan-950/20">
+            <div className="overflow-hidden rounded-xl border border-white/10 bg-[#0b0b0d]">
+              <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
+                <div className="flex gap-2">
+                  <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-yellow-400" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-green-400" />
+                </div>
+
+                <span className="text-xs text-zinc-600">
+                  careerops-ai / career-analysis
+                </span>
+              </div>
+
+              <div className="grid gap-6 p-6 md:grid-cols-3 md:p-8">
+                <div className="rounded-xl border border-white/10 bg-white/[0.02] p-5">
+                  <div className="text-xs uppercase tracking-widest text-zinc-600">
+                    Profile
+                  </div>
+                  <div className="mt-5 space-y-3">
+                    <div className="h-3 w-4/5 rounded bg-white/10" />
+                    <div className="h-3 w-3/5 rounded bg-white/10" />
+                    <div className="h-3 w-2/3 rounded bg-white/10" />
+                  </div>
+                </div>
+
+                <div className="rounded-xl border border-cyan-400/20 bg-cyan-400/[0.04] p-5">
+                  <div className="flex items-center gap-2 text-sm font-medium">
+                    <Sparkles className="h-4 w-4 text-cyan-300" />
+                    AI Analysis
+                  </div>
+
+                  <div className="mt-5 text-sm leading-6 text-zinc-400">
+                    Profile signals
+                    <div className="mt-2 text-2xl font-semibold text-white">
+                      12
+                    </div>
+                  </div>
+                </div>
+
+                <div className="rounded-xl border border-white/10 bg-white/[0.02] p-5">
+                  <div className="text-xs uppercase tracking-widest text-zinc-600">
+                    Career Match
+                  </div>
+
+                  <div className="mt-5">
+                    <div className="text-lg font-semibold">
+                      Software Developer
+                    </div>
+                    <div className="mt-2 text-sm text-zinc-500">
+                      Problem solving + technology + creativity
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="border-t border-white/10 px-6 py-5">
+                <div className="flex flex-wrap gap-2">
+                  {["Technology", "Problem Solving", "Creativity", "Communication", "Analytics"].map(
+                    (skill) => (
+                      <span
+                        key={skill}
+                        className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs text-zinc-400"
+                      >
+                        {skill}
+                      </span>
+                    ),
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Career Tracks */}
+        <section
+          id="careers"
+          className="border-y border-white/10 bg-white/[0.02]"
+        >
+          <div className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
+            <div className="max-w-2xl">
+              <div className="text-sm font-medium text-cyan-300">
+                Career intelligence
+              </div>
+
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-5xl">
+                Find a path that matches your strengths.
+              </h2>
+
+              <p className="mt-5 text-zinc-400">
+                Explore career areas and understand the skills,
+                experience and learning needed for different career paths.
+              </p>
+            </div>
+
+            <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {careerTracks.map(({ title, description, icon: Icon }) => (
+                <article
+                  key={title}
+                  className="group rounded-2xl border border-white/10 bg-[#0a0a0b] p-6 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/30"
+                >
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04]">
+                    <Icon className="h-5 w-5 text-cyan-300" />
+                  </div>
+
+                  <h3 className="mt-6 text-lg font-semibold">{title}</h3>
+
+                  <p className="mt-3 text-sm leading-6 text-zinc-500">
+                    {description}
+                  </p>
+
+                  <div className="mt-6 flex items-center gap-2 text-sm text-zinc-300">
+                    Explore career path
+                    <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Workflow */}
+        <section id="workflow" className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
+          <div className="max-w-2xl">
+            <div className="text-sm font-medium text-violet-300">
+              How CareerOps AI works
+            </div>
+
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-5xl">
+              From your interests to your career roadmap.
+            </h2>
+          </div>
+
+          <div className="mt-12 grid gap-4 md:grid-cols-4">
+            {[
+              ["01", "Tell Us About You", "Interests, education, skills, projects and experience."],
+              ["02", "Discover Careers", "Explore career paths that align with your interests and strengths."],
+              ["03", "Analyze Your Fit", "Understand strengths, skill gaps and career requirements."],
+              ["04", "Get Your Roadmap", "Receive personalized learning, projects, certifications and job guidance."],
+            ].map(([number, title, text]) => (
+              <div
+                key={number}
+                className="rounded-2xl border border-white/10 bg-white/[0.02] p-6"
+              >
+                <div className="text-xs font-medium text-cyan-300">
+                  {number}
+                </div>
+                <h3 className="mt-5 font-semibold">{title}</h3>
+                <p className="mt-3 text-sm leading-6 text-zinc-500">{text}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Architecture */}
+        <section className="border-y border-white/10 bg-white/[0.02]">
+          <div className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
+            <div className="text-sm font-medium text-cyan-300">
+              Built like a real product
+            </div>
+
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-5xl">
+              Modern architecture. Built for personalized career guidance.
+            </h2>
+
+            <div className="mt-12 grid gap-4 md:grid-cols-4">
+              {[
+                ["Frontend", "React + Vite + Tailwind", Code2],
+                ["Backend", "Python + FastAPI", Terminal],
+                ["Database", "PostgreSQL + SQLAlchemy", Database],
+                ["AI Layer", "Provider abstraction", Bot],
+              ].map(([title, text, Icon]) => (
+                <div
+                  key={title}
+                  className="rounded-2xl border border-white/10 bg-[#0a0a0b] p-6"
+                >
+                  <Icon className="h-5 w-5 text-cyan-300" />
+                  <div className="mt-6 text-sm text-zinc-500">{title}</div>
+                  <div className="mt-2 font-semibold">{text}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Technology */}
+        <section id="stack" className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
+          <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+            <div>
+              <div className="text-sm font-medium text-violet-300">
+                Career interest explorer
+              </div>
+
+              <h2 className="mt-3 text-3xl font-semibold sm:text-5xl">
+                Explore the areas that interest you and discover the career paths connected to them.
+              </h2>
+            </div>
+
+            <Sparkles className="hidden h-12 w-12 text-zinc-700 md:block" />
+          </div>
+
+          <div className="mt-10 flex flex-wrap gap-3">
+            {technologies.map((technology) => (
+              <span
+                key={technology}
+                className="rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-zinc-300 transition hover:border-cyan-400/30 hover:bg-cyan-400/[0.04]"
+              >
+                {technology}
+              </span>
+            ))}
+          </div>
+        </section>
+
+        {/* Security */}
+        <section id="security" className="border-y border-white/10 bg-white/[0.02]">
+          <div className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
+            <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+              <div>
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-emerald-400/20 bg-emerald-400/10">
+                  <ShieldCheck className="h-6 w-6 text-emerald-300" />
+                </div>
+
+                <h2 className="mt-6 text-3xl font-semibold sm:text-5xl">
+                  Security is part of the architecture.
+                </h2>
+              </div>
+
+              <div className="grid gap-3 sm:grid-cols-2">
+                {[
+                  "Environment-based secrets",
+                  "Input validation",
+                  "Protected API configuration",
+                  "Authentication ready",
+                  "Testing workflow",
+                  "Controlled deployment",
+                ].map((item) => (
+                  <div
+                    key={item}
+                    className="flex items-center gap-3 rounded-xl border border-white/10 bg-[#0a0a0b] p-4"
+                  >
+                    <Check className="h-4 w-4 text-emerald-300" />
+                    <span className="text-sm text-zinc-300">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="mx-auto max-w-7xl px-5 py-12 text-center lg:px-8">
+          <div className="mx-auto max-w-3xl rounded-3xl border border-cyan-400/15 bg-cyan-400/[0.04] px-6 py-16">
+            <Sparkles className="mx-auto h-7 w-7 text-cyan-300" />
+
+            <h2 className="mt-6 text-3xl font-semibold sm:text-5xl">
+              Your career journey starts here.
+            </h2>
+
+            <p className="mx-auto mt-5 max-w-xl text-zinc-400">
+              Build a clear, personalized career roadmap with CareerOps AI.
+            </p>
+
+            <a
+              href="#careers"
+              className="mt-8 inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3.5 text-sm font-semibold text-black transition hover:bg-zinc-200"
+            >
+              Discover My Career
+              <ArrowRight className="h-4 w-4" />
+            </a>
+          </div>
+        </section>
+      </main>
+
+      <footer className="border-t border-white/10 px-5 py-8">
+        <div className="mx-auto flex max-w-7xl flex-col justify-between gap-3 text-sm text-zinc-600 sm:flex-row lg:px-8">
+          <span>CareerOps AI</span>
+          <span>AI Career Guidance Platform</span>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+export default App;
